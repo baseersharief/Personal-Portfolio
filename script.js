@@ -406,21 +406,37 @@ document.addEventListener('DOMContentLoaded', function() {
     const profileImage = document.getElementById('profile-image');
     const profileFallback = document.getElementById('profile-fallback');
     
+    console.log('Profile image element:', profileImage);
+    console.log('Profile fallback element:', profileFallback);
+    
     if (profileImage && profileFallback) {
         // Check if image loads successfully
         profileImage.addEventListener('load', function() {
+            console.log('Image loaded successfully!');
             profileImage.style.display = 'block';
             profileFallback.style.display = 'none';
         });
         
         profileImage.addEventListener('error', function() {
+            console.log('Image failed to load');
             profileImage.style.display = 'none';
             profileFallback.style.display = 'flex';
         });
         
-        // Trigger error event if image doesn't exist
-        if (!profileImage.complete) {
-            profileImage.dispatchEvent(new Event('error'));
-        }
+        // Force image to load
+        profileImage.src = 'headshot.jpg?' + new Date().getTime();
+        
+        // Check if image exists and is accessible
+        fetch('headshot.jpg')
+            .then(response => {
+                if (response.ok) {
+                    console.log('Image file exists and is accessible');
+                } else {
+                    console.log('Image file not accessible');
+                }
+            })
+            .catch(error => {
+                console.log('Error accessing image file:', error);
+            });
     }
 }); 
