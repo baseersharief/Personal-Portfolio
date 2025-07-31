@@ -265,9 +265,16 @@ style.textContent = `
 document.head.appendChild(style);
 
 // Dark Mode Toggle Functionality
-function initThemeToggle() {
+document.addEventListener('DOMContentLoaded', function() {
     const themeToggle = document.getElementById('theme-toggle');
     const html = document.documentElement;
+    
+    // Debug: Check if button is found
+    if (!themeToggle) {
+        console.error('Theme toggle button not found!');
+        return;
+    }
+    console.log('Theme toggle button found:', themeToggle);
     
     // Check for saved theme preference or default to light mode
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -276,21 +283,25 @@ function initThemeToggle() {
     // Update toggle button state
     updateToggleButton(savedTheme);
     
-    // Reset navbar styles to use CSS variables
-    const navbar = document.querySelector('.navbar');
-    if (navbar) {
-        navbar.style.background = '';
-        navbar.style.boxShadow = '';
-    }
-    
     // Theme toggle click handler
-    themeToggle.addEventListener('click', () => {
+    themeToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Theme toggle clicked!'); // Debug log
+        
         const currentTheme = html.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        console.log('Current theme:', currentTheme, 'New theme:', newTheme); // Debug log
         
         // Update theme
         html.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
+        
+        // Test: Force a repaint to ensure CSS variables are applied
+        html.style.display = 'none';
+        html.offsetHeight; // Trigger reflow
+        html.style.display = '';
         
         // Update toggle button
         updateToggleButton(newTheme);
@@ -307,8 +318,14 @@ function initThemeToggle() {
         setTimeout(() => {
             html.style.transition = '';
         }, 300);
+        
+        // Debug: Check if theme actually changed
+        setTimeout(() => {
+            const computedBg = getComputedStyle(document.body).backgroundColor;
+            console.log('Body background color after theme change:', computedBg);
+        }, 100);
     });
-}
+});
 
 function updateToggleButton(theme) {
     const themeToggle = document.getElementById('theme-toggle');
@@ -323,9 +340,6 @@ function updateToggleButton(theme) {
         moonIcon.style.display = 'none';
     }
 }
-
-// Initialize theme toggle when DOM is loaded
-document.addEventListener('DOMContentLoaded', initThemeToggle);
 
 // Performance optimization: Debounce scroll events
 function debounce(func, wait) {
