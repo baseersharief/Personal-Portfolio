@@ -78,7 +78,11 @@
             </div>
             <div class="hero-image">
                 <div class="profile-image">
-                    <img src="headshot.jpg" alt="Baseer Sharief - Computer Science Student & Developer" />
+                    <img src="headshot.jpg" alt="Baseer Sharief - Computer Science Student & Developer" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                    <div class="profile-fallback">
+                        <i class="fas fa-user"></i>
+                        <span>Add your photo as 'headshot.jpg'</span>
+                    </div>
                 </div>
             </div>
         </div>
