@@ -78,11 +78,11 @@
             </div>
             <div class="hero-image">
                 <div class="profile-image">
-                    <img src="headshot.jpg" alt="Baseer Sharief - Computer Science Student & Developer" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-                    <div class="profile-fallback">
+                    <div class="profile-fallback" id="profile-fallback">
                         <i class="fas fa-user"></i>
                         <span>Add your photo as 'headshot.jpg'</span>
                     </div>
+                    <img src="headshot.jpg" alt="Baseer Sharief - Computer Science Student & Developer" id="profile-image" style="display: none;" onload="this.style.display='block'; document.getElementById('profile-fallback').style.display='none';" onerror="this.style.display='none'; document.getElementById('profile-fallback').style.display='flex';" />
                 </div>
             </div>
         </div>

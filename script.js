@@ -399,4 +399,28 @@ const debouncedScrollHandler = debounce(() => {
     });
 }, 10);
 
-window.addEventListener('scroll', debouncedScrollHandler); 
+window.addEventListener('scroll', debouncedScrollHandler);
+
+// Handle profile image loading
+document.addEventListener('DOMContentLoaded', function() {
+    const profileImage = document.getElementById('profile-image');
+    const profileFallback = document.getElementById('profile-fallback');
+    
+    if (profileImage && profileFallback) {
+        // Check if image loads successfully
+        profileImage.addEventListener('load', function() {
+            profileImage.style.display = 'block';
+            profileFallback.style.display = 'none';
+        });
+        
+        profileImage.addEventListener('error', function() {
+            profileImage.style.display = 'none';
+            profileFallback.style.display = 'flex';
+        });
+        
+        // Trigger error event if image doesn't exist
+        if (!profileImage.complete) {
+            profileImage.dispatchEvent(new Event('error'));
+        }
+    }
+}); 
