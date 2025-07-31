@@ -101,14 +101,40 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Typing effect for hero title
-function typeWriter(element, text, speed = 100) {
+// Fixed typing effect for hero title with highlighted name
+function typeWriter(element, speed = 100) {
     let i = 0;
+    const fullText = "Hi, I'm Baseer Sharief!";
+    const nameStart = fullText.indexOf("Baseer Sharief");
+    const nameEnd = nameStart + "Baseer Sharief".length;
+    
     element.innerHTML = '';
     
     function type() {
-        if (i < text.length) {
-            element.innerHTML += text.charAt(i);
+        if (i < fullText.length) {
+            let currentText = fullText.substring(0, i + 1);
+            
+            // Add highlighting to the name part
+            if (i >= nameStart && i < nameEnd) {
+                let beforeName = fullText.substring(0, nameStart);
+                let nameInProgress = fullText.substring(nameStart, i + 1);
+                let afterName = i >= nameEnd - 1 ? fullText.substring(nameEnd) : '';
+                
+                element.innerHTML = beforeName + 
+                                  '<span class="name-highlight">' + nameInProgress + '</span>' + 
+                                  afterName;
+            } else if (i >= nameEnd - 1) {
+                let beforeName = fullText.substring(0, nameStart);
+                let name = fullText.substring(nameStart, nameEnd);
+                let afterName = fullText.substring(nameEnd, i + 1);
+                
+                element.innerHTML = beforeName + 
+                                  '<span class="name-highlight">' + name + '</span>' + 
+                                  afterName;
+            } else {
+                element.innerHTML = currentText;
+            }
+            
             i++;
             setTimeout(type, speed);
         }
@@ -120,10 +146,9 @@ function typeWriter(element, text, speed = 100) {
 document.addEventListener('DOMContentLoaded', () => {
     const heroTitle = document.querySelector('.hero-title');
     if (heroTitle) {
-        const originalText = heroTitle.innerHTML;
         // Add a small delay before starting the typing effect
         setTimeout(() => {
-            typeWriter(heroTitle, originalText, 50);
+            typeWriter(heroTitle, 50);
         }, 500);
     }
 });
@@ -440,3 +465,19 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 }); 
+
+// Add this to your existing style section in script.js
+const existingStyle = document.querySelector('style');
+if (existingStyle) {
+    existingStyle.textContent += `
+    
+    .name-highlight {
+        color: #2563eb;
+        background: linear-gradient(135deg, #2563eb, #3b82f6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+    }
+    `;
+}
