@@ -30,12 +30,24 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Navbar background change on scroll
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    
     if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        if (currentTheme === 'dark') {
+            navbar.style.background = 'rgba(15, 23, 42, 0.98)';
+            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
+        } else {
+            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        }
     } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.boxShadow = 'none';
+        if (currentTheme === 'dark') {
+            navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+            navbar.style.boxShadow = 'none';
+        } else {
+            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            navbar.style.boxShadow = 'none';
+        }
     }
 });
 
@@ -264,6 +276,13 @@ function initThemeToggle() {
     // Update toggle button state
     updateToggleButton(savedTheme);
     
+    // Reset navbar styles to use CSS variables
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        navbar.style.background = '';
+        navbar.style.boxShadow = '';
+    }
+    
     // Theme toggle click handler
     themeToggle.addEventListener('click', () => {
         const currentTheme = html.getAttribute('data-theme');
@@ -275,6 +294,13 @@ function initThemeToggle() {
         
         // Update toggle button
         updateToggleButton(newTheme);
+        
+        // Reset navbar styles to use CSS variables
+        const navbar = document.querySelector('.navbar');
+        if (navbar) {
+            navbar.style.background = '';
+            navbar.style.boxShadow = '';
+        }
         
         // Add transition effect
         html.style.transition = 'background-color 0.3s ease, color 0.3s ease';
@@ -318,12 +344,24 @@ function debounce(func, wait) {
 const debouncedScrollHandler = debounce(() => {
     // Navbar background change
     const navbar = document.querySelector('.navbar');
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    
     if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        if (currentTheme === 'dark') {
+            navbar.style.background = 'rgba(15, 23, 42, 0.98)';
+            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
+        } else {
+            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        }
     } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.boxShadow = 'none';
+        if (currentTheme === 'dark') {
+            navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+            navbar.style.boxShadow = 'none';
+        } else {
+            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            navbar.style.boxShadow = 'none';
+        }
     }
     
     // Active navigation link highlighting
