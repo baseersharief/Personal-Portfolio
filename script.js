@@ -252,6 +252,55 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// Dark Mode Toggle Functionality
+function initThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    
+    // Check for saved theme preference or default to light mode
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+    
+    // Update toggle button state
+    updateToggleButton(savedTheme);
+    
+    // Theme toggle click handler
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        // Update theme
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        // Update toggle button
+        updateToggleButton(newTheme);
+        
+        // Add transition effect
+        html.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+        setTimeout(() => {
+            html.style.transition = '';
+        }, 300);
+    });
+}
+
+function updateToggleButton(theme) {
+    const themeToggle = document.getElementById('theme-toggle');
+    const sunIcon = themeToggle.querySelector('.fa-sun');
+    const moonIcon = themeToggle.querySelector('.fa-moon');
+    
+    if (theme === 'dark') {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+    } else {
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+    }
+}
+
+// Initialize theme toggle when DOM is loaded
+document.addEventListener('DOMContentLoaded', initThemeToggle);
+
 // Performance optimization: Debounce scroll events
 function debounce(func, wait) {
     let timeout;
