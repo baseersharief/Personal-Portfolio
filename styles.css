@@ -333,10 +333,13 @@ body {
     padding: 2rem;
 }
 
-.profile-fallback i {
+.profile-initials {
     font-size: 4rem;
+    font-weight: 700;
     margin-bottom: 1rem;
-    opacity: 0.8;
+    opacity: 0.9;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .profile-fallback span {
@@ -887,7 +890,7 @@ section {
         height: 250px;
     }
     
-    .profile-fallback i {
+    .profile-initials {
         font-size: 3rem;
     }
     

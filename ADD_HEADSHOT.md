@@ -2,10 +2,16 @@
 
 To add your professional headshot to the portfolio:
 
-1. **Save your photo** as `headshot.jpg` in this directory
+1. **Save your photo** as `headshot.jpg` in this directory (`/Users/baseersharief/Personal-Portfolio/`)
 2. **Recommended size**: 400x400 pixels or larger (square aspect ratio)
 3. **Format**: JPG, JPEG, or PNG
 4. **File name**: Must be exactly `headshot.jpg`
+
+## Quick Steps:
+1. Copy your headshot image to the portfolio folder
+2. Rename it to `headshot.jpg`
+3. Refresh the webpage
+4. Your photo will automatically replace the placeholder
 
 ## Current Status
 - ✅ Portfolio is ready for your headshot
